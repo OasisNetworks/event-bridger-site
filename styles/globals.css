@@ -2,17 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Product Sans";
+  src: url("/fonts/Product Sans Regular.ttf");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Product Sans";
+  src: url("/fonts/Product Sans Bold.ttf");
+  font-style: medium;
+  font-weight: 600;
+  font-display: swap;
+}
+
 html,
-body {
+body,
+main {
   padding: 0;
   margin: 0;
   font-family: Product Sans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-a {
+html > a,
+body > a,
+main > a {
   color: inherit;
   text-decoration: none;
+}
+
+html > p,
+body > p,
+main > p {
+  color: inherit;
+  text-decoration: none;
+  text-decoration-style: none;
+}
+
+a > p {
+  color: inherit;
+  text-decoration: none;
+  text-decoration-style: none;
 }
 
 * {

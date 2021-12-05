@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -14,17 +14,21 @@ export default function Home() {
       <main className="min-h-screen">
         <div className="relative z-10 pb-8 mt-8 bg-white min-h-screen max-w-6xl mx-auto">
           <div className="flex flex-row">
-            <a href="#" className="align-middle">
-              <div className="flex items-center justify-between">
-                <Image className="h-8 w-auto sm:h-10 inline-block" alt="logo" width={64} height={64} src="/logo.png" />
-                <p className="leading-6 h-full pl-4 text-2xl font-bold">Event <br/>Bridger</p>
+            <Link href="/" passHref>
+              <div href="#" className="align-middle hover:opacity-80 cursor-pointer">
+                <div className="flex items-center justify-between">
+                  <Image className="h-8 w-auto sm:h-10 inline-block" alt="logo" width={64} height={64} src="/logo.png" />
+                  <div className="leading-6 h-full pl-4 text-2xl font-bold" style={{color: 'black'}}>Event <br/>Bridger</div>
+                </div>
               </div>
-            </a>
-            <div className="bg-gray-200 p-3 px-6 rounded-xl block m-auto mr-0">
-              <p className="text-gray-600 text-xl font-bold">
-                Docs
-              </p>
-            </div>
+            </Link>
+            <Link href="/docs" passHref>
+              <div className="hover:opacity-80 bg-gray-300 p-3 px-6 rounded-xl block m-auto mr-0 cursor-pointer">
+                <p className="text-gray-700 text-xl font-bold">
+                  Docs
+                </p>
+              </div>
+            </Link>
           </div>
 
           <div className="pt-14 flex justify-between">
@@ -70,7 +74,7 @@ export default function Home() {
           rel="noopener noreferrer"
           className="flex flex-row content-center justify-center w-full pt-2"
         >
-          <p className="text-l"> Powered by </p>
+          <div className="text-l"> Powered by </div>
           
           <span className="pt-0.5">
             <Image src="/let-sh-logo.svg" alt="let.sh logo" width={92} height={24} />
