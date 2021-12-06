@@ -2,12 +2,13 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   projectLink: 'https://github.com/OasisNetworks/event-bridge-site', // GitHub link in the navbar
-  docsRepositoryBase: 'https://github.com/OasisNetworks/event-bridge-site/blob/master', // base URL for the docs repository
+  docsRepositoryBase: 'https://github.com/OasisNetworks/event-bridge-site/blob/main', // base URL for the docs repository
   titleSuffix: ' – Event Bridge',
   nextLinks: true,
   prevLinks: true,
-  search: false,
-  customSearch: null, // customizable, you can use algolia for example
+  font: true,
+  search: true,
+  // customSearch: null, // customizable, you can use algolia for example
   darkMode: true,
   footer: true,
   floatTOC: true,
@@ -62,4 +63,5 @@ export default {
       <meta name="og:title" content="Nextra: the next docs builder" />
     </>
   ),
+  unstable_faviconGlyph: '⚡',
 }

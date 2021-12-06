@@ -1,8 +1,75 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import React, {useEffect} from 'react'
+import anime from 'animejs';
 
 export default function Home() {
+  var connectTextParis = [
+    [ "Stripe", "Database" ],
+    [ "App Store" , "Message" ],
+    [ "GitHub", "Email" ],
+  ]
+  function animateConnectorText(classSelector) {
+    var textWrapper = document.querySelector('.'+classSelector);
+    textWrapper.innerHTML = textWrapper.textContent.replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>");
+
+    var loopCount = 1;
+    var textOrder = 0;
+    if (classSelector === "connector-destination-text") {
+      textOrder = 1;
+    }
+    var coonnectorTimeline = anime.timeline({
+      loop: true,
+    })
+    .add({
+      targets: '.'+classSelector+' .line',
+      scaleY: [0,1],
+      opacity: [0.5,1],
+      easing: "easeOutExpo",
+      duration: 700
+    })
+    .add({
+      targets: '.'+classSelector+' .line',
+      translateX: [0, document.querySelector('.'+classSelector).getBoundingClientRect().width + 10],
+      easing: "easeOutExpo",
+      duration: 700,
+      delay: 100
+    }).add({
+      targets: '.'+classSelector+' .letter',
+      opacity: [0,1],
+      easing: "easeInOutExpo",
+      duration: 600,
+      offset: '-=775',
+      delay: (el, i) => 34 * (i+1)
+    }).add({
+      opacity: 1,
+      duration: 600,
+    }).add({
+      targets: '.'+classSelector,
+      opacity: 0,
+      duration: 1000,
+      easing: "easeInOutExpo",
+      delay: 1000,
+      changeComplete: function(anim) {
+        var textWrapper = document.querySelector('.' + classSelector);
+        console.log("order: ", loopCount % 3);
+        if (textWrapper !== null) {
+          textWrapper.textContent = connectTextParis[loopCount%3][textOrder]
+          textWrapper.innerHTML = textWrapper.textContent.replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>");
+          loopCount += 1;
+          console.log("loop: ", loopCount);
+        }
+      }
+    }).add({
+      opacity: 1,
+      duration: 100,
+    });
+  }
+
+  useEffect(() => animateConnectorText("connector-source-text"), []);
+  useEffect(() => animateConnectorText("connector-destination-text"), []);
+
   return (
     <div>
       <Head>
@@ -12,7 +79,7 @@ export default function Home() {
       </Head>
 
       <main className="min-h-screen">
-        <div className="relative z-10 pb-8 mt-8 bg-white min-h-screen max-w-6xl mx-auto">
+        <div className="relative z-10 pb-8 mt-8 bg-white min-h-screen max-w-6xl 2xl:mx-auto xl:mx-auto mx-10">
           <div className="flex flex-row">
             <Link href="/" passHref>
               <div href="#" className="align-middle hover:opacity-80 cursor-pointer">
@@ -38,9 +105,16 @@ export default function Home() {
                 Connect you events
               </h1>
               <h1 className="text-left text-6xl font-bold">
-                From Stripe To Mobile
+                From
+                <div className="inline-block mx-3 px-5 py-6 bg-blue-500 text-white">
+                  <p className="connector-source-text">Stripe</p>
+                </div>
+                to
+                <div className="inline-block mx-3 px-5 py-6 bg-blue-500 text-white">
+                  <p className="connector-destination-text">Mobile</p>
+                </div>
               </h1>
-              <p className="text-left text-4xl pt-8 max-w-3xl text-gray-400 font-light mb-12">
+              <p className="text-left text-3xl pt-8 max-w-3xl text-gray-400 font-light mb-16">
               Event Bridger helps you transform you events from your Source to Destination
               </p>
 
@@ -68,18 +142,18 @@ export default function Home() {
       </main>
 
       <footer className="w-full p-3 border-t">
-        <a
+        <Link
           href="https://alpha.let.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex flex-row content-center justify-center w-full pt-2"
+          passHref
         >
-          <div className="text-l"> Powered by </div>
-          
-          <span className="pt-0.5">
-            <Image src="/let-sh-logo.svg" alt="let.sh logo" width={92} height={24} />
-          </span>
-        </a>
+          <div className="flex flex-row content-center justify-center w-full pt-2 cursor-pointer">
+            <div className="text-l">Powered by </div>
+            
+            <span className="pt-0.5">
+              <Image src="/let-sh-logo.svg" alt="let.sh logo" width={92} height={24} />
+            </span>
+          </div>
+        </Link>
       </footer>
     </div>
   )
